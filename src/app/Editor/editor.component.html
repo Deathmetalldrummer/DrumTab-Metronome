@@ -1,43 +1,38 @@
 <h1>{{title}}</h1>
-<form id="tableX">
-  <fieldset form="tableX">
     <legend>X</legend>
-    <select name="line">
+    <select name="line" (change)="lineChange($event)">
+      <option value="Line">Line</option>
       <option value="1">1</option>
       <option value="2">2</option>
       <option value="3">3</option>
       <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
     </select>
     X
-    <select name="column">
+    <select #column name="column" (change)="columnChange($event)">
+      <option value="Column">Column</option>
       <option value="1">1</option>
       <option value="2">2</option>
       <option value="3">3</option>
       <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
     </select>
-  </fieldset>
-</form>
 
 
 
-<table>
-  <tr>
-    <td>Hi-Hat</td>
+<table ngClass="arr">
+  <tr *ngFor="let columns of arr;let i = index;">
     <td>
-      <input type="checkbox" />
-      <div class="checkbox"></div>
+      <select>
+        <option value="Hi-Hat">Hi-Hat</option>
+        <option value="Hi-Hat">Snare</option>
+        <option value="Hi-Hat">Bass</option>
+      </select>
     </td>
-  <tr>
-    <td>Snare</td>
-    <td>
-      <input type="checkbox" />
-      <div class="checkbox"></div>
-    </td>
-  </tr>
-  <tr>
-    <td>Bass</td>
-    <td>
-      <input type="checkbox" />
+    <td *ngFor="let lines of columns;let j = index;">
+      <input type="checkbox" name="lines" inp value="{{i+1}},{{j+1}}" />
       <div class="checkbox"></div>
     </td>
   </tr>

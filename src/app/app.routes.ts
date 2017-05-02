@@ -1,7 +1,7 @@
 import { Routes, RouterModule } from '@angular/router';
-import { EditorComponent } from './Editor/editor.component';
-import { ListComponent } from './List/list.component';
-import { MetronomeComponent } from './Metronome/metronome.component';
+import { EditorComponent } from './editor/editor.component';
+import { ListComponent } from './list/list.component';
+import { MetronomeComponent } from './metronome/metronome.component';
 
 const appRoutes: Routes = [
   {path: 'editor', component: EditorComponent},

@@ -12,10 +12,10 @@ export class EditorComponent implements OnInit {
 	constructor(private appService: AppService) {}
 
 	lineChange(e) {
-		this.appService.setData({x: +e.target.value})
+		this.appService.setData({x: +e.target.value});
 	}
 	columnChange(e) {
-		this.appService.setData({x: +e.target.value, y: true})
+		this.appService.setData({x: +e.target.value, y: true});
 	}
 	ngOnInit() {
 	}

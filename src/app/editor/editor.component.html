@@ -1,5 +1,4 @@
 <h1>{{title}}</h1>
-    <legend>X</legend>
     <select name="line" (change)="lineChange($event)">
       <option value="Line">Line</option>
       <option value="1">1</option>
@@ -9,7 +8,6 @@
       <option value="5">5</option>
       <option value="6">6</option>
     </select>
-    X
     <select #column name="column" (change)="columnChange($event)">
       <option value="Column">Column</option>
       <option value="1">1</option>
@@ -32,7 +30,7 @@
       </select>
     </td>
     <td *ngFor="let lines of columns;let j = index;">
-      <input type="checkbox" name="lines" inp value="{{i+1}},{{j+1}}" />
+      <input type="checkbox" name="lines" inp value="{{i}},{{j}}" />
       <div class="checkbox"></div>
     </td>
   </tr>

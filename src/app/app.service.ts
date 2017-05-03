@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class AppService {
 	data: Array<Array<number>> = [];
+	public getData() {
+		return this.data;
+	}
 	public setData(obj) {
 		if (!obj.y) {
 			this.data = [];
@@ -17,6 +20,14 @@ export class AppService {
 					this.data[i].push(0);
 				}
 			}
-		}
+		}// end if else
+	}// end setData
+	public setChangeData(val) {
+		let [line, column] = val.split(',');
+		for(let i = 0; i <= line; i++) {
+			for(let j = 0; j <= column; j++) {
+				this.data[i][j] = 1;
+			}
+		}// end for
 	}
 }

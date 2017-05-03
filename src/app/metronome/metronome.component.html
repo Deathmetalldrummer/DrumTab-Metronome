@@ -12,25 +12,21 @@
 </form>
 
 
-<table>
-  <tr>
-    <td>Hi-Hat</td>
+
+<table ngClass="arr">
+  <tr *ngFor="let c of appService.dataTpl;let i = index;">
     <td>
-      <input type="checkbox" />
-      <div class="checkbox"></div>
+      <select>
+        <option value="Hi-Hat">Hi-Hat</option>
+        <option value="Hi-Hat">Snare</option>
+        <option value="Hi-Hat">Bass</option>
+      </select>
     </td>
-  <tr>
-    <td>Snare</td>
-    <td>
-      <input type="checkbox" />
-      <div class="checkbox"></div>
-    </td>
-  </tr>
-  <tr>
-    <td>Bass</td>
-    <td>
-      <input type="checkbox" />
-      <div class="checkbox"></div>
+    <td *ngFor="let l of c;let j = index;">
+      <input type="checkbox" name="lines" inp value="{{i}},{{j}}" *ngIf="l;" checked />
+      <input type="checkbox" name="lines" inp value="{{i}},{{j}}" *ngIf="!l;" />
     </td>
   </tr>
 </table>
+<button (click)="onPlay()">Play</button>
+<button (click)="onStop()">Stop</button>

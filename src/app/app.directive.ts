@@ -7,11 +7,8 @@ import {Directive, ElementRef} from '@angular/core';
   }
 })
 export class ChangeDirective {
-  xx: any;
-  constructor(private element: ElementRef) {}
-  onChange() {
-    // this.element.nativeElement.value.split(',');
-    this.xx.push('aaaa')
-    console.log(this.xx);
-  }
+	constructor(private element: ElementRef) {}
+	onChange() {
+	// this.element.nativeElement.value.split(',');
+	}
 }

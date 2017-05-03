@@ -1,5 +1,6 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
 // import { FormGroup, FormControl, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { AppService } from '../app.service';
 
 @Component({
   selector: 'app-editor',
@@ -7,28 +8,15 @@ import { Component, ViewChild, OnInit } from '@angular/core';
   styleUrls: ['./editor.component.css']
 })
 export class EditorComponent implements OnInit {
-  title = 'Editor';
-  arr: Array<Array<number>> = [];
-  arrLenght: number;
-  lineChange(e) {
-    this.arr = [];
-    for (let i = 0; i < +e.target.value; i++) {
-      this.arr.push([]);
-    }
-  }
-  columnChange(e) {
-    this.arrLenght = this.arr.length || 1;
-    for (let i = 0; i < this.arrLenght; i++) {
-      this.arr[i] = [];
-      for (let j = 0; j < +e.target.value; j++) {
-        this.arr[i].push(0);
-      }
-    }
-    console.log(this.arr);
-  }
+	title = 'Editor';
+	constructor(private appService: AppService) {}
 
-
-  ngOnInit() {
-  }
-
+	lineChange(e) {
+		this.appService.setData({x: +e.target.value})
+	}
+	columnChange(e) {
+		this.appService.setData({x: +e.target.value, y: true})
+	}
+	ngOnInit() {
+	}
 }

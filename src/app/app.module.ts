@@ -4,6 +4,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { ROUTES } from './app.routes';
 import { ChangeDirective } from './app.directive';
+import { AppService } from './app.service';
 
 import { AppComponent } from './app.component';
 import { ListComponent } from './list/list.component';
@@ -25,7 +26,7 @@ import { MetronomeComponent } from './metronome/metronome.component';
     ROUTES,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [AppService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,17 +1,15 @@
-import {Directive, ElementRef} from '@angular/core';
-import { AppService } from './app.service';
+import {Directive, ElementRef, HostListener} from '@angular/core';
+import {AppService} from './app.service';
 
 @Directive({
-  selector: '[inp]',
-  host: {
-    '(change)': 'onChange()'
-  }
+  selector: '[inp]'
 })
 export class ChangeDirective {
-	constructor(private element: ElementRef, private appService: AppService) {}
-	onChange() {
-		let val: string = this.element.nativeElement.value;
-		let check: string = this.element.nativeElement.checked;
-		this.appService.setChangeData(val);
-	}
+  constructor(private element: ElementRef, private appService: AppService) {
+  }
+@HostListener('change') onChange() {
+    const val: string = this.element.nativeElement.value;
+    const check: string = this.element.nativeElement.checked;
+    this.appService.setChangeData(val, check);
+  }
 }

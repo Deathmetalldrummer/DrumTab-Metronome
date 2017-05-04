@@ -9,33 +9,51 @@ import { AppService } from '../app.service';
 export class MetronomeComponent implements OnInit {
   title = 'Metronome';
   play: any;
+  count = 0;
+  toggle = true;
   constructor(private appService: AppService) {
   }
-  onPlay() {
-    for (let j = 0; j < this.appService.data.length; j++ ) {
-
-      let i = 0;
-      this.play = setInterval((): void => {
-        if (this.appService.data[j][i] === 1) {
-          const audio = new Audio();
-          audio.src = '../../assets/sound/bass.mp3';
-          audio.autoplay = true;
-        }
-        i++;
-        console.log(this.play.runCount);
-        if (i === this.appService.data[j].length) {
-          i = 0;
-        }
-      }, 300);
-
-
-
+  PlayStop(e) {
+    if (this.toggle) {
+      this.onPlay();
+      e.target.innerText = 'Stop';
+    } else {
+      this.onStop();
+      e.target.innerText = 'Play';
     }
-
+    this.toggle = !this.toggle;
+  }
+  playSound(sound: string = 'ride') {
+    const audio = new Audio();
+    audio.src = '../../assets/sound/' + sound + '.mp3';
+    audio.autoplay = true;
     }
   onStop() {
+    clearTimeout(this.play);
+  }
+  onPlay() {
+      this.play = setTimeout(() => {
+          for (let l = 0; l < this.appService.data.length; l++) {
+            if (this.appService.data[l][this.count]) {
+            this.playSound();
+          }
+        }
+        this.count++;
+        if (this.count >= this.appService.data[0].length) {
+          this.count = 0;
+        }
+        this.onPlay();
+      }, 500);
   }
   ngOnInit() {
+    this.playSound('ride');
+    this.playSound('snare');
+    this.playSound('bass');
+    this.playSound('hi-hat3');
   }
 
 }
+
+
+
+

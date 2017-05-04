@@ -1,15 +1,11 @@
 <h1>{{title}}</h1>
-<form id="temp">
-  <fieldset form="temp">
-    <legend>Temp</legend>
-    <select name="temp">
-      <option value="100">100</option>
-      <option value="110">110</option>
-      <option value="120">120</option>
-      <option value="130">130</option>
-    </select>
-  </fieldset>
-</form>
+<select name="temp">
+  <option value="Temp">Temp</option>
+  <option value="100">100</option>
+  <option value="110">110</option>
+  <option value="120">120</option>
+  <option value="130">130</option>
+</select>
 
 
 
@@ -23,10 +19,9 @@
       </select>
     </td>
     <td *ngFor="let l of c;let j = index;">
-      <input type="checkbox" name="lines" inp value="{{i}},{{j}}" *ngIf="l;" checked />
-      <input type="checkbox" name="lines" inp value="{{i}},{{j}}" *ngIf="!l;" />
+      <input type="checkbox" name="lines" value="{{i}},{{j}}" *ngIf="l;" checked />
+      <input type="checkbox" name="lines" value="{{i}},{{j}}" *ngIf="!l;" />
     </td>
   </tr>
 </table>
-<button (click)="onPlay()">Play</button>
-<button (click)="onStop()">Stop</button>
+<button (click)="PlayStop($event)">Play</button>

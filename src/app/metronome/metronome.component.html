@@ -10,17 +10,14 @@
 
 
 <table ngClass="arr">
-  <tr *ngFor="let c of appService.dataTpl;let i = index;">
+  <tr *ngFor="let c of appService.patternTpl;let i = index;">
     <td>
-      <select>
-        <option value="Hi-Hat">Hi-Hat</option>
-        <option value="Hi-Hat">Snare</option>
-        <option value="Hi-Hat">Bass</option>
-      </select>
+      <div *ngIf="!appService.drumset[i]">snare:</div>
+      <div *ngIf="appService.drumset[i]">{{appService.drumset[i]}}:</div>
     </td>
     <td *ngFor="let l of c;let j = index;">
-      <input type="checkbox" name="lines" value="{{i}},{{j}}" *ngIf="l;" checked />
-      <input type="checkbox" name="lines" value="{{i}},{{j}}" *ngIf="!l;" />
+      <input type="checkbox" name="lines" value="{{i}},{{j}}" *ngIf="l;" checked disabled />
+      <input type="checkbox" name="lines" value="{{i}},{{j}}" *ngIf="!l;" disabled />
     </td>
   </tr>
 </table>

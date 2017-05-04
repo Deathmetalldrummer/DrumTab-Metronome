@@ -2,31 +2,45 @@ import {Injectable} from '@angular/core';
 
 @Injectable()
 export class AppService {
-  dataTpl: Array<Array<number>> = (localStorage.data && JSON.parse(localStorage.data).length) ? JSON.parse(localStorage.data) : [];
-  data: Array<Array<number>> = (localStorage.data && JSON.parse(localStorage.data).length) ? JSON.parse(localStorage.data) : [];
-  public setData(obj) {
+  // Матрица нотного стана
+  patternTpl: Array<Array<number>> = (localStorage.pattern && JSON.parse(localStorage.pattern).length) ? JSON.parse(localStorage.pattern) : [];
+  // матрица чекбоксов
+  pattern: Array<Array<number>> = (localStorage.pattern && JSON.parse(localStorage.pattern).length) ? JSON.parse(localStorage.pattern) : [];
+
+  drumset: Array<string> = (localStorage.drumset && JSON.parse(localStorage.drumset).length) ? JSON.parse(localStorage.drumset) : [];
+
+  setPattern(obj) {
     if (!obj.y) {
-      this.dataTpl = [];
-      this.data = [];
+      this.patternTpl = [];
+      this.pattern = [];
+      this.drumset = [];
       for (let i = 0; i < obj.x; i++) {
-        this.dataTpl.push([]);
-        this.data.push([]);
+        this.patternTpl.push([]);
+        this.pattern.push([]);
+        this.drumset.push('');
       }
     } else {
-      for (let i = 0; i < this.dataTpl.length; i++) {
-        this.dataTpl[i] = [];
-        this.data[i] = [];
+      for (let i = 0; i < this.patternTpl.length; i++) {
+        this.patternTpl[i] = [];
+        this.pattern[i] = [];
         for (let j = 0; j < obj.x; j++) {
-            this.dataTpl[i].push(0);
-            this.data[i].push(0);
+            this.patternTpl[i].push(0);
+            this.pattern[i].push(0);
         }
       }
     }// end if else
-  }// end setData
-  public setChangeData(val, status) {
+  }// end setPattern
+  setChangePattern(val, status) {
     const [lines, columns] = val.split(',');
-    this.data[+lines][+columns] = 1;
-    console.log(this.data);
+    if (status) {
+      this.pattern[+lines][+columns] = 1;
+    } else {
+      this.pattern[+lines][+columns] = 0;
+    }
+  }// end setChangePattern
+
+  setDrumset(val, dataId) {
+      this.drumset[dataId] = val;
   }
 }
 

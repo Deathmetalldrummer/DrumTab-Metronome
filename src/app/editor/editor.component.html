@@ -1,42 +1,48 @@
 <h1>{{title}}</h1>
-    <select name="line" (change)="lineChange($event)">
-      <option value="Line">Line</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-    </select>
-    <select #column name="column" (change)="columnChange($event)">
-      <option value="Column">Column</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-      <option value="8">8</option>
-      <option value="9">9</option>
-      <option value="10">10</option>
-      <option value="11">11</option>
-      <option value="12">12</option>
-      <option value="13">13</option>
-      <option value="14">14</option>
-      <option value="15">15</option>
-      <option value="16">16</option>
-    </select>
-
+<input type="text" #valu />
+<br /><br />
+<select name="line" (change)="lineChange($event)">
+  <option value="Line" disabled>Line</option>
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+  <option value="6">6</option>
+</select>
+<select #column name="column" (change)="columnChange($event)">
+  <option value="Column" disabled>Column</option>
+  <option value="1">1</option>
+  <option value="2">2</option>
+  <option value="3">3</option>
+  <option value="4">4</option>
+  <option value="5">5</option>
+  <option value="6">6</option>
+  <option value="7">7</option>
+  <option value="8">8</option>
+  <option value="9">9</option>
+  <option value="10">10</option>
+  <option value="11">11</option>
+  <option value="12">12</option>
+  <option value="13">13</option>
+  <option value="14">14</option>
+  <option value="15">15</option>
+  <option value="16">16</option>
+</select>
+<br /><br />
 
 
 <table ngClass="arr">
-  <tr *ngFor="let c of appService.dataTpl;let i = index;">
+  <tr *ngFor="let c of appService.patternTpl;let i = index;">
     <td>
-      <select>
-        <option value="Hi-Hat">Hi-Hat</option>
-        <option value="Hi-Hat">Snare</option>
-        <option value="Hi-Hat">Bass</option>
+      <select inp name="line" data-id="{{i}}">
+        <option value="Drumset" disabled>Drumset</option>
+        <option value="snare">Snare</option>
+        <option value="bass">Bass</option>
+        <option value="ride">Ride</option>
+        <option value="hi-hat1">Hi-Hat 1</option>
+        <option value="hi-hat2">Hi-Hat 2</option>
+        <option value="hi-hat3">Hi-Hat 3</option>
       </select>
     </td>
     <td *ngFor="let l of c;let j = index;">
@@ -45,6 +51,6 @@
     </td>
   </tr>
 </table>
-
-<button type="submit" (click)="btn()">Ok</button>
+<br />
+<button type="submit" (click)="localWrite()">Ok</button>
 <button type="submit" (click)="localClear()">Clear</button>

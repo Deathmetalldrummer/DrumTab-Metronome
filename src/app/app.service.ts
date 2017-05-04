@@ -10,7 +10,7 @@ export class AppService {
   drumset: Array<string> = (localStorage.drumset && JSON.parse(localStorage.drumset).length) ? JSON.parse(localStorage.drumset) : [];
 
   setPattern(obj) {
-    if (!obj.y) {
+    if (!obj.checked) {
       this.patternTpl = [];
       this.pattern = [];
       this.drumset = [];

@@ -18,7 +18,7 @@ export class EditorComponent implements OnInit {
   }
 
   columnChange(e) {
-    this.appService.setPattern({x: +e.target.value, y: true});
+    this.appService.setPattern({x: +e.target.value, checked: true});
   }
   localWrite() {
     console.log(this.valu.nativeElement.value);

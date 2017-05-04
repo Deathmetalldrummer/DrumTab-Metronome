@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, ElementRef, ViewChild} from '@angular/core';
 import {AppService} from '../app.service';
 
 @Component({
@@ -8,22 +8,23 @@ import {AppService} from '../app.service';
 })
 export class MetronomeComponent implements OnInit, OnDestroy {
   title = 'Metronome';
-  play: any;
-  count = 0;
-  toggle = true;
+  private _playTimeout: any;
+  private _count = 0;
+  private _togglePlayStop = true;
+  @ViewChild('temp') private _temp: ElementRef;
 
   constructor(private appService: AppService) {
   }
 
   PlayStop(e) {
-    if (this.toggle) {
+    if (this._togglePlayStop) {
       this.onPlay();
       e.target.innerText = 'Stop';
     } else {
       this.onStop();
       e.target.innerText = 'Play';
     }
-    this.toggle = !this.toggle;
+    this._togglePlayStop = !this._togglePlayStop;
   }
 
   playSound(sound: string = 'snare') {
@@ -33,22 +34,25 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   }
 
   onStop() {
-    clearTimeout(this.play);
+    clearTimeout(this._playTimeout);
   }
 
   onPlay() {
-    this.play = setTimeout(() => {
-      for (let l = 0; l < this.appService.pattern.length; l++) {
-        if (this.appService.pattern[l][this.count]) {
+    const pattern = this.appService.pattern;
+    const tempValue: number = +this._temp.nativeElement.value;
+    const temp: number = 60000 / (tempValue ? tempValue : 100);
+    this._playTimeout = setTimeout(() => {
+      for (let l = 0; l < pattern.length; l++) {
+        if (pattern[l][this._count]) {
           this.playSound(this.appService.drumset[l]);
         }
       }
-      this.count++;
-      if (this.count >= this.appService.pattern[0].length) {
-        this.count = 0;
+      this._count++;
+      if (this._count >= pattern[0].length) {
+        this._count = 0;
       }
       this.onPlay();
-    }, 60000 / 150);
+    }, temp);
   }
 
   ngOnInit() {

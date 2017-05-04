@@ -33,7 +33,7 @@
 
 
 <table ngClass="arr">
-  <tr *ngFor="let c of appService.patternTpl;let i = index;">
+  <tr *ngFor="let line of appService.patternTpl;let i = index">
     <td>
       <select inp name="line" data-id="{{i}}">
         <option value="Drumset" disabled>Drumset</option>
@@ -45,9 +45,9 @@
         <option value="hi-hat3">Hi-Hat 3</option>
       </select>
     </td>
-    <td *ngFor="let l of c;let j = index;">
-        <input type="checkbox" name="lines" inp value="{{i}},{{j}}" *ngIf="l;" checked />
-        <input type="checkbox" name="lines" inp value="{{i}},{{j}}" *ngIf="!l;" />
+    <td *ngFor="let column of line;let j = index;">
+        <input type="checkbox" name="lines" inp value="{{i}},{{j}}" *ngIf="column" checked />
+        <input type="checkbox" name="lines" inp value="{{i}},{{j}}" *ngIf="!column" />
     </td>
   </tr>
 </table>

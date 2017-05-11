@@ -11,29 +11,29 @@ import {AppService} from '../app.service';
 })
 export class MetronomeComponent implements OnInit, OnDestroy {
   title = 'Metronome';
-  private _id: number;
-  private _playTimeout: any;
-  private _count = 0;
-  private _togglePlayStop = true;
-  private _routeSubscription: Subscription;
-  private _objectTemplate;
-  private _bpmSelect = Array.apply(null, {length: 20}).map((value, index) => (index + 6) * 10);
-  @ViewChild('bpm') private _bpm: ElementRef;
+  private id: number;
+  private playTimeout: any;
+  private count = 0;
+  private togglePlayStop = true;
+  private routeSubscription: Subscription;
+  private objectTemplate;
+  private bpmSelect = Array.apply(null, {length: 20}).map((value, index) => (index + 6) * 10);
+  @ViewChild('bpm') private bpm: ElementRef;
 
 constructor(private appService: AppService, private activateRoute: ActivatedRoute) {}
 
   addObjectTemplate(id) {
-    this._objectTemplate = this.appService.dataPattern[id];
+    this.objectTemplate = this.appService.dataPattern[id];
 }
   PlayStop(e) {
-    if (this._togglePlayStop) {
+    if (this.togglePlayStop) {
       this.onPlay();
       e.target.innerText = 'Stop';
     } else {
       this.onStop();
       e.target.innerText = 'Play';
     }
-    this._togglePlayStop = !this._togglePlayStop;
+    this.togglePlayStop = !this.togglePlayStop;
   }
 
   playSound(sound: string = 'snare') {
@@ -43,30 +43,30 @@ constructor(private appService: AppService, private activateRoute: ActivatedRout
   }
 
   onStop() {
-    clearTimeout(this._playTimeout);
+    clearTimeout(this.playTimeout);
   }
 
   onPlay() {
-    const pattern = this._objectTemplate.pattern;
-    const tempValue: number = +this._bpm.nativeElement.value;
+    const pattern = this.objectTemplate.pattern;
+    const tempValue: number = +this.bpm.nativeElement.value;
     const temp: number = 60000 / (tempValue ? tempValue : 100);
-    this._playTimeout = setTimeout(() => {
+    this.playTimeout = setTimeout(() => {
       for (let l = 0; l < pattern.length; l++) {
-        if (pattern[l][this._count]) {
-          this.playSound(this._objectTemplate.drumset[l]);
+        if (pattern[l][this.count]) {
+          this.playSound(this.objectTemplate.drumset[l]);
         }
       }
-      this._count++;
-      if (this._count >= pattern[0].length) {
-        this._count = 0;
+      this.count++;
+      if (this.count >= pattern[0].length) {
+        this.count = 0;
       }
       this.onPlay();
     }, temp);
   }
 
   ngOnInit() {
-    this._routeSubscription = this.activateRoute.params.subscribe(params => this._id = params['id']);
-    this.addObjectTemplate(this._id);
+    this.routeSubscription = this.activateRoute.params.subscribe(params => this.id = params['id']);
+    this.addObjectTemplate(this.id);
   }
   ngOnDestroy() {
     this.onStop();

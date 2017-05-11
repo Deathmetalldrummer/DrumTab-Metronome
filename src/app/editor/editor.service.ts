@@ -35,9 +35,13 @@ export class EditorService {
     if (line < patternLength) {
       this.dataObject.pattern.splice(line, (patternLength - line));
     } else {
+      const patternChildLength: number = this.dataObject.pattern[0] ? this.dataObject.pattern[0].length : 0;
       for (let i = 0; i < (line - patternLength); i++) {
         this.dataObject.pattern.push([]);
         this.dataObject.drumset.push('');
+        for (let j = 0; j < patternChildLength; j++) {
+          this.dataObject.pattern[this.dataObject.pattern.length - 1].push(0);
+        }
       }
     }
   }// end lineGrid

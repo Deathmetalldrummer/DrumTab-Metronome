@@ -1,15 +1,15 @@
 <h1>{{title}}</h1>
 <select name="bpm" #bpm>
-  <option *ngFor="let bpm of _bpmSelect"  value="bpm">{{bpm}}</option>
+  <option *ngFor="let bpm of bpmSelect"  value="bpm">{{bpm}}</option>
 </select>
 
 
 
 <table ngClass="arr">
-  <tr *ngFor="let line of _objectTemplate.pattern;let i = index;">
+  <tr *ngFor="let line of objectTemplate.pattern;let i = index;">
     <td>
-      <div *ngIf="!_objectTemplate.drumset[i]">snare:</div>
-      <div *ngIf="_objectTemplate.drumset[i]">{{_objectTemplate.drumset[i]}}:</div>
+      <div *ngIf="!objectTemplate.drumset[i]">snare:</div>
+      <div *ngIf="objectTemplate.drumset[i]">{{objectTemplate.drumset[i]}}:</div>
     </td>
     <td *ngFor="let column of line;let j = index;">
       <input type="checkbox" name="lines" value="{{i}},{{j}}" *ngIf="column;" checked disabled />
@@ -20,4 +20,4 @@
 <button (click)="PlayStop($event)">Play</button>
 <br />
 <br />
-<a [routerLink]="['../../editor', _id]">edit</a> <br>
+<a [routerLink]="['../../editor', id]">edit</a> <br>

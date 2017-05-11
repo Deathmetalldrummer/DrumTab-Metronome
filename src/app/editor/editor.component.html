@@ -3,10 +3,10 @@
 <input type="text" name='name' value="{{editorService.dataObject.name}}" #nameValue />
 <br /><br />
 <select name="lineSelect" appChange >
-  <option *ngFor="let lineSelect of _lineSelect" value="{{lineSelect}}">Line {{lineSelect}}</option>
+  <option *ngFor="let lineS of lineSelect" value="{{lineS}}">Line {{lineS}}</option>
 </select>
 <select name="columnSelect" appChange>
-  <option *ngFor="let columnSelect of _columnSelect" value="{{columnSelect}}">Column {{columnSelect}}</option>
+  <option *ngFor="let columnS of columnSelect" value="{{columnS}}">Column {{columnS}}</option>
 </select>
 <br /><br />
 
@@ -14,7 +14,7 @@
   <tr *ngFor="let line of editorService.dataObject.pattern;let i = index">
     <td>
       <select name="drumsetSelect" data-id='{{i}}' appChange>
-        <option *ngFor="let drumset of _drumsetSelect" value="{{drumset}}">{{drumset}}</option>
+        <option *ngFor="let drumset of drumsetSelect" value="{{drumset}}">{{drumset}}</option>
       </select>
     </td>
     <td *ngFor="let column of line;let j = index;">

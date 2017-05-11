@@ -1,28 +1,32 @@
 <h1>{{title}}</h1>
-<h3>{{editorService.dataObject.name}}</h3>
-<input type="text" name='name' value="{{editorService.dataObject.name}}" #nameValue />
-<br /><br />
-<select name="lineSelect" appChange >
-  <option *ngFor="let lineSelect of _lineSelect" value="{{lineSelect}}">Line {{lineSelect}}</option>
+<!--<h3>{{editorService.dataObject.name}}</h3>-->
+<input type="text" name='name' value="{{editorService.dataObject.name}}" #nameValue/>
+<br/><br/>
+<select name="lineSelect" appChange>
+  <option #namesel *ngFor="let lineS of lineSelect" value="{{lineS}}">Line {{lineS}}</option>
 </select>
 <select name="columnSelect" appChange>
-  <option *ngFor="let columnSelect of _columnSelect" value="{{columnSelect}}">Column {{columnSelect}}</option>
+  <option *ngFor="let columnS of columnSelect" value="{{columnS}}">Column {{columnS}}</option>
 </select>
-<br /><br />
+<br/><br/>
 
 <table ngClass="arr">
-  <tr *ngFor="let line of editorService.dataObject.pattern;let i = index">
+  <tr *ngFor="let line of editorService.dataObject.patternTemplate;let i = index">
     <td>
       <select name="drumsetSelect" data-id='{{i}}' appChange>
-        <option *ngFor="let drumset of _drumsetSelect" value="{{drumset}}">{{drumset}}</option>
+        <option *ngFor="let drumset of drumsetSelect" value="{{drumset}}">{{drumset}}</option>
       </select>
     </td>
     <td *ngFor="let column of line;let j = index;">
-        <input type="checkbox" name="patternCheck" value="{{i}},{{j}}" *ngIf="column" checked appChange />
-        <input type="checkbox" name="patternCheck" value="{{i}},{{j}}" *ngIf="!column" appChange />
+      <label>
+        <input class="checkbox" type="checkbox" name="patternCheck" value="{{i}},{{j}}" *ngIf="column" checked
+               appChange/>
+        <input class="checkbox" type="checkbox" name="patternCheck" value="{{i}},{{j}}" *ngIf="!column" appChange/>
+        <div class="fakeCheckbox"></div>
+      </label>
     </td>
   </tr>
 </table>
-<br />
+<br/>
 <button type="submit" (click)="submitOk()">Save</button>
 <button type="submit" (click)="submitClear()">Clear</button>

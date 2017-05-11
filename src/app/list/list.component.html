@@ -5,3 +5,4 @@
 <ol>
   <li *ngFor="let objectPattern of appService.dataPattern"><a [routerLink]="['../metronome', objectPattern.id]">{{objectPattern.name}}</a></li>
 </ol>
+<button (click)="clearList()">Clear List</button>

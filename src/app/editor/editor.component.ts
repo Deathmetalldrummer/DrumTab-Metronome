@@ -12,18 +12,18 @@ import {Subscription} from 'rxjs/Subscription';
 })
 export class EditorComponent implements OnInit, OnDestroy {
   title = 'Editor';
-  private _id: number;
-  private _routeSubscription: Subscription;
-  private _lineSelect: number[] = Array.apply(null, {length: 6}).map((value, index) => index + 1);
-  private _columnSelect: number[] = Array.apply(null, {length: 32}).map((value, index) => index + 1);
-  private _drumsetSelect: string[] = ['snare', 'bass', 'ride', 'hi-hat1', 'hi-hat2', 'hi-hat3'];
+  private id: number;
+  private routeSubscription: Subscription;
+  private lineSelect: number[] = Array.apply(null, {length: 6}).map((value, index) => index + 1);
+  private columnSelect: number[] = Array.apply(null, {length: 32}).map((value, index) => index + 1);
+  private drumsetSelect: string[] = ['snare', 'bass', 'ride', 'hi-hat1', 'hi-hat2', 'hi-hat3'];
   @ViewChild('nameValue') nameValue: ElementRef;
 
   constructor(private editorService: EditorService, private activateRoute: ActivatedRoute, private appService: AppService) {
   }
   submitOk(): void {
     this.editorService.setName(this.nameValue.nativeElement.value);
-    this.editorService.addDataPattern(this._id);
+    this.editorService.addDataPattern(this.id);
     console.log(localStorage);
   }
   submitClear(): void {
@@ -32,11 +32,11 @@ export class EditorComponent implements OnInit, OnDestroy {
     console.log(localStorage);
   }
   ngOnInit() {
-    this._routeSubscription = this.activateRoute.params.subscribe(params => this._id = params['id']);
-    this.editorService.addDataObject(this._id);
+    this.routeSubscription = this.activateRoute.params.subscribe(params => this.id = params['id']);
+    this.editorService.addDataObject(this.id);
   }
   ngOnDestroy() {
-    this._routeSubscription.unsubscribe();
+    this.routeSubscription.unsubscribe();
     this.editorService.clearDataObject();
   }
 }

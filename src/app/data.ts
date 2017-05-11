@@ -3,4 +3,6 @@ export class Data {
   name = '';
   pattern: Array<Array<number>> = [];
   drumset: Array<string> = [];
+  patternTemplate: Array<Array<number>> = [];
+
 }

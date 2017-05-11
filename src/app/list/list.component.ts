@@ -10,4 +10,9 @@ export class ListComponent {
   title = 'List';
 
   constructor(private appService: AppService) {}
+
+  clearList() {
+    this.appService.dataPattern = [];
+    localStorage.clear();
+  }
 }

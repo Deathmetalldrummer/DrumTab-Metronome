@@ -4,35 +4,44 @@ import {Data} from '../data';
 
 @Injectable()
 export class EditorService {
-  private dataObject;
-  constructor(private appService: AppService) { }
-
-  Id(id) {
-      this.dataObject = this.appService.getData[id] || new Data();
+  dataObject;
+  constructor(private appService: AppService) {
   }
 
-  get getDataObject() {
-    return this.dataObject;
+  addDataObject(id): void {
+    this.dataObject = this.appService.dataPattern[id] || new Data();
+    this.dataObject.id = id ? id : 0;
   }
 
-  setName(val) {
-    this.dataObject.name = val;
-	this.dataObject.id = this.appService.getData.length;
+  clearDataObject(): void {
+    this.dataObject = new Data();
   }
 
+  addDataPattern(id): void {
+    if (this.appService.dataPattern[id]) {
+      this.appService.dataPattern[id] = this.dataObject;
+    } else {
+      this.appService.dataPattern.push(this.dataObject);
+    }
+    this.appService.writeData();
+  }
 
-  setLineGrid(line: number) {
+  setName(val): void {
+      this.dataObject.name = val.length ? val : 'No-name';
+  }
+
+  setLineGrid(line: number): void {
     const patternLength: number = this.dataObject.pattern.length;
     if (line < patternLength) {
       this.dataObject.pattern.splice(line, (patternLength - line));
     } else {
       for (let i = 0; i < (line - patternLength); i++) {
         this.dataObject.pattern.push([]);
-        // this.data.drumset.push('');
+        this.dataObject.drumset.push('');
       }
     }
   }// end lineGrid
-  setColumnGrid(column: number) {
+  setColumnGrid(column: number): void {
     const patternChildLength: number = this.dataObject.pattern[0].length;
     for (let i = 0; i < this.dataObject.pattern.length; i++) {
       if (column < patternChildLength) {
@@ -45,15 +54,14 @@ export class EditorService {
     }
   }// end columnGrid
 
-  setDrumset(val, drumId) {
+  setDrumset(val, drumId): void {
     if (val) {
       this.dataObject.drumset[drumId] = val;
     }
   }
 
-  patternCheck(val, status) {
+  patternCheck(val, status): void {
     const [lines, columns] = val.split(',');
-    //patternTpl nолько тут
     if (status) {
       this.dataObject.pattern[+lines][+columns] = 1;
     } else {

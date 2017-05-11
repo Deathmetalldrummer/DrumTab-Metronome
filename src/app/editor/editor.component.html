@@ -1,33 +1,12 @@
 <h1>{{title}}</h1>
-<input type="text" name='name' #nameValue />
+<h3>{{editorService.dataObject.name}}</h3>
+<input type="text" name='name' value="{{editorService.dataObject.name}}" #nameValue />
 <br /><br />
 <select name="lineSelect" appChange >
-	<option value="Line" disabled>Line</option>
-  <option value="1">1</option>
-  <option value="2">2</option>
-  <option value="3">3</option>
-  <option value="4">4</option>
-  <option value="5">5</option>
-  <option value="6">6</option>
+  <option *ngFor="let lineSelect of _lineSelect" value="{{lineSelect}}">Line {{lineSelect}}</option>
 </select>
 <select name="columnSelect" appChange>
-  <option value="Column" disabled>Column</option>
-  <option value="1">1</option>
-  <option value="2">2</option>
-  <option value="3">3</option>
-  <option value="4">4</option>
-  <option value="5">5</option>
-  <option value="6">6</option>
-  <option value="7">7</option>
-  <option value="8">8</option>
-  <option value="9">9</option>
-  <option value="10">10</option>
-  <option value="11">11</option>
-  <option value="12">12</option>
-  <option value="13">13</option>
-  <option value="14">14</option>
-  <option value="15">15</option>
-  <option value="16">16</option>
+  <option *ngFor="let columnSelect of _columnSelect" value="{{columnSelect}}">Column {{columnSelect}}</option>
 </select>
 <br /><br />
 
@@ -35,13 +14,7 @@
   <tr *ngFor="let line of editorService.dataObject.pattern;let i = index">
     <td>
       <select name="drumsetSelect" data-id='{{i}}' appChange>
-        <option value="Drumset" disabled>Drumset</option>
-        <option value="snare">Snare</option>
-        <option value="bass">Bass</option>
-        <option value="ride">Ride</option>
-        <option value="hi-hat1">Hi-Hat 1</option>
-        <option value="hi-hat2">Hi-Hat 2</option>
-        <option value="hi-hat3">Hi-Hat 3</option>
+        <option *ngFor="let drumset of _drumsetSelect" value="{{drumset}}">{{drumset}}</option>
       </select>
     </td>
     <td *ngFor="let column of line;let j = index;">
@@ -51,5 +24,5 @@
   </tr>
 </table>
 <br />
-<button type="submit" (click)="submitOk()">Ok</button>
+<button type="submit" (click)="submitOk()">Save</button>
 <button type="submit" (click)="submitClear()">Clear</button>

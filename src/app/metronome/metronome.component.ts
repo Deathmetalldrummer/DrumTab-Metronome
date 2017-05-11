@@ -13,15 +13,17 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   title = 'Metronome';
   private _id: number;
   private _playTimeout: any;
-  private _count: number = 0;
-  private _togglePlayStop: boolean = true;
+  private _count = 0;
+  private _togglePlayStop = true;
   private _routeSubscription: Subscription;
-  private _ojectTemplate;
-  @ViewChild('temp') private _temp: ElementRef;
+  private _objectTemplate;
+  private _bpmSelect = Array.apply(null, {length: 20}).map((value, index) => (index + 6) * 10);
+  @ViewChild('bpm') private _bpm: ElementRef;
 
-constructor(private appService: AppService, private activateRoute: ActivatedRoute) {
-  this._routeSubscription = activateRoute.params.subscribe(params => this._ojectTemplate = appService.getData[params['id']]);
-  console.log(this._ojectTemplate)
+constructor(private appService: AppService, private activateRoute: ActivatedRoute) {}
+
+  addObjectTemplate(id) {
+    this._objectTemplate = this.appService.dataPattern[id];
 }
   PlayStop(e) {
     if (this._togglePlayStop) {
@@ -45,13 +47,13 @@ constructor(private appService: AppService, private activateRoute: ActivatedRout
   }
 
   onPlay() {
-    const pattern = this._ojectTemplate.pattern;
-    const tempValue: number = +this._temp.nativeElement.value;
+    const pattern = this._objectTemplate.pattern;
+    const tempValue: number = +this._bpm.nativeElement.value;
     const temp: number = 60000 / (tempValue ? tempValue : 100);
     this._playTimeout = setTimeout(() => {
       for (let l = 0; l < pattern.length; l++) {
         if (pattern[l][this._count]) {
-          this.playSound(this._ojectTemplate.drumset[l]);
+          this.playSound(this._objectTemplate.drumset[l]);
         }
       }
       this._count++;
@@ -63,9 +65,11 @@ constructor(private appService: AppService, private activateRoute: ActivatedRout
   }
 
   ngOnInit() {
+    this._routeSubscription = this.activateRoute.params.subscribe(params => this._id = params['id']);
+    this.addObjectTemplate(this._id);
   }
   ngOnDestroy() {
-    // this.onStop();
+    this.onStop();
   }
 
 }

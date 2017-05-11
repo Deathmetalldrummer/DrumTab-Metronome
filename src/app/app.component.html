@@ -1,7 +1,7 @@
-
-<h1>{{title}}</h1>
-<ul class="list">
-  <li class="list__item" *ngFor="let dataPattern of appService.getData"><a [routerLink]="['metronome/', 'dataPattern.id']">{{dataPattern.name}}</a></li>
-</ul>
-<a routerLink="">home</a>
+<nav>
+  <ul>
+    <li><a routerLink="list">List</a></li>
+    <li><a [routerLink]="['editor', appService.dataPattern.length]">Create pattern</a></li>
+  </ul>
+</nav>
 <router-outlet></router-outlet>

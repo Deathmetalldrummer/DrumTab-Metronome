@@ -1,36 +1,23 @@
 <h1>{{title}}</h1>
-<select name="temp" #temp>
-  <option value="Temp" disabled>Temp</option>
-  <option value="100">100</option>
-  <option value="110">110</option>
-  <option value="120">120</option>
-  <option value="130">130</option>
-  <option value="140">140</option>
-  <option value="150">150</option>
-  <option value="160">160</option>
-  <option value="170">170</option>
-  <option value="180">180</option>
-  <option value="190">190</option>
-  <option value="200">200</option>
-  <option value="210">210</option>
-  <option value="220">220</option>
-  <option value="230">230</option>
-  <option value="240">240</option>
-  <option value="250">250</option>
+<select name="bpm" #bpm>
+  <option *ngFor="let bpm of _bpmSelect"  value="bpm">{{bpm}}</option>
 </select>
 
 
 
 <table ngClass="arr">
-  <tr *ngFor="let c of _ojectTemplate.pattern;let i = index;">
+  <tr *ngFor="let line of _objectTemplate.pattern;let i = index;">
     <td>
-      <div *ngIf="!_ojectTemplate.drumset[i]">snare:</div>
-      <div *ngIf="_ojectTemplate.drumset[i]">{{_ojectTemplate.drumset[i]}}:</div>
+      <div *ngIf="!_objectTemplate.drumset[i]">snare:</div>
+      <div *ngIf="_objectTemplate.drumset[i]">{{_objectTemplate.drumset[i]}}:</div>
     </td>
-    <td *ngFor="let l of c;let j = index;">
-      <input type="checkbox" name="lines" value="{{i}},{{j}}" *ngIf="l;" checked disabled />
-      <input type="checkbox" name="lines" value="{{i}},{{j}}" *ngIf="!l;" disabled />
+    <td *ngFor="let column of line;let j = index;">
+      <input type="checkbox" name="lines" value="{{i}},{{j}}" *ngIf="column;" checked disabled />
+      <input type="checkbox" name="lines" value="{{i}},{{j}}" *ngIf="!column;" disabled />
     </td>
   </tr>
 </table>
 <button (click)="PlayStop($event)">Play</button>
+<br />
+<br />
+<a [routerLink]="['../../editor', _id]">edit</a> <br>

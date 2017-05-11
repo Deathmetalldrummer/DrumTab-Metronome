@@ -1,8 +1,8 @@
 <h1>{{title}}</h1>
-<input type="text" #valu />
+<input type="text" name='name' #nameValue />
 <br /><br />
-<select name="line" (change)="lineChange($event)">
-  <option value="Line" disabled>Line</option>
+<select name="lineSelect" appChange >
+	<option value="Line" disabled>Line</option>
   <option value="1">1</option>
   <option value="2">2</option>
   <option value="3">3</option>
@@ -10,7 +10,7 @@
   <option value="5">5</option>
   <option value="6">6</option>
 </select>
-<select #column name="column" (change)="columnChange($event)">
+<select name="columnSelect" appChange>
   <option value="Column" disabled>Column</option>
   <option value="1">1</option>
   <option value="2">2</option>
@@ -31,11 +31,10 @@
 </select>
 <br /><br />
 
-
 <table ngClass="arr">
-  <tr *ngFor="let line of appService.patternTpl;let i = index">
+  <tr *ngFor="let line of editorService.dataObject.pattern;let i = index">
     <td>
-      <select inp name="line" data-id="{{i}}">
+      <select name="drumsetSelect" data-id='{{i}}' appChange>
         <option value="Drumset" disabled>Drumset</option>
         <option value="snare">Snare</option>
         <option value="bass">Bass</option>
@@ -46,11 +45,11 @@
       </select>
     </td>
     <td *ngFor="let column of line;let j = index;">
-        <input type="checkbox" name="lines" inp value="{{i}},{{j}}" *ngIf="column" checked />
-        <input type="checkbox" name="lines" inp value="{{i}},{{j}}" *ngIf="!column" />
+        <input type="checkbox" name="patternCheck" value="{{i}},{{j}}" *ngIf="column" checked appChange />
+        <input type="checkbox" name="patternCheck" value="{{i}},{{j}}" *ngIf="!column" appChange />
     </td>
   </tr>
 </table>
 <br />
-<button type="submit" (click)="localWrite()">Ok</button>
-<button type="submit" (click)="localClear()">Clear</button>
+<button type="submit" (click)="submitOk()">Ok</button>
+<button type="submit" (click)="submitClear()">Clear</button>

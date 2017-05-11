@@ -22,10 +22,10 @@
 
 
 <table ngClass="arr">
-  <tr *ngFor="let c of appService.patternTpl;let i = index;">
+  <tr *ngFor="let c of _ojectTemplate.pattern;let i = index;">
     <td>
-      <div *ngIf="!appService.drumset[i]">snare:</div>
-      <div *ngIf="appService.drumset[i]">{{appService.drumset[i]}}:</div>
+      <div *ngIf="!_ojectTemplate.drumset[i]">snare:</div>
+      <div *ngIf="_ojectTemplate.drumset[i]">{{_ojectTemplate.drumset[i]}}:</div>
     </td>
     <td *ngFor="let l of c;let j = index;">
       <input type="checkbox" name="lines" value="{{i}},{{j}}" *ngIf="l;" checked disabled />

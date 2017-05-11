@@ -1,3 +1,6 @@
+import { ActivatedRoute} from '@angular/router';
+import {Subscription} from 'rxjs/Subscription';
+
 import {Component, OnInit, OnDestroy, ElementRef, ViewChild} from '@angular/core';
 import {AppService} from '../app.service';
 
@@ -8,14 +11,18 @@ import {AppService} from '../app.service';
 })
 export class MetronomeComponent implements OnInit, OnDestroy {
   title = 'Metronome';
+  private _id: number;
   private _playTimeout: any;
-  private _count = 0;
-  private _togglePlayStop = true;
+  private _count: number = 0;
+  private _togglePlayStop: boolean = true;
+  private _routeSubscription: Subscription;
+  private _ojectTemplate;
   @ViewChild('temp') private _temp: ElementRef;
 
-  constructor(private appService: AppService) {
-  }
-
+constructor(private appService: AppService, private activateRoute: ActivatedRoute) {
+  this._routeSubscription = activateRoute.params.subscribe(params => this._ojectTemplate = appService.getData[params['id']]);
+  console.log(this._ojectTemplate)
+}
   PlayStop(e) {
     if (this._togglePlayStop) {
       this.onPlay();
@@ -38,13 +45,13 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   }
 
   onPlay() {
-    const pattern = this.appService.pattern;
+    const pattern = this._ojectTemplate.pattern;
     const tempValue: number = +this._temp.nativeElement.value;
     const temp: number = 60000 / (tempValue ? tempValue : 100);
     this._playTimeout = setTimeout(() => {
       for (let l = 0; l < pattern.length; l++) {
         if (pattern[l][this._count]) {
-          this.playSound(this.appService.drumset[l]);
+          this.playSound(this._ojectTemplate.drumset[l]);
         }
       }
       this._count++;
@@ -58,11 +65,7 @@ export class MetronomeComponent implements OnInit, OnDestroy {
   ngOnInit() {
   }
   ngOnDestroy() {
-    this.onStop();
+    // this.onStop();
   }
 
 }
-
-
-
-

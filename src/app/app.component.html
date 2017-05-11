@@ -1,10 +1,7 @@
-<nav class="nav">
-  <ul class="nav__list">
-    <li class="nav-list__item"><a routerLink="/metronome" class="nav-list__link">metronome</a></li>
-    <li class="nav-list__item"><a routerLink="/list" class="nav-list__link">list</a></li>
-    <li class="nav-list__item"><a routerLink="/editor" class="nav-list__link">editor</a></li>
-  </ul>
-</nav>
 
-
+<h1>{{title}}</h1>
+<ul class="list">
+  <li class="list__item" *ngFor="let dataPattern of appService.getData"><a [routerLink]="['metronome/', 'dataPattern.id']">{{dataPattern.name}}</a></li>
+</ul>
+<a routerLink="">home</a>
 <router-outlet></router-outlet>

@@ -13,11 +13,6 @@ export class EditorService {
     this.patternObject.id = id ? id : 0;
   }
 
-  clearPatternObject(id): void {
-    this.patternObject = new Data();
-    this.patternObject.id = id ? id : 0;
-  }
-
   setName(val): void {
     this.patternObject.name = val.length ? val : 'No-name';
   }
@@ -59,21 +54,9 @@ export class EditorService {
     }
   }
 
-  setChecked(val, status): void {
-    const check = this.patternObject.checked;
-    if (status) {
-      check.push(val);
-    } else {
-      check.splice(check.indexOf(val), 1);
-    }
-  }// end patternCheck
-
-  writeChecked() {
-    for (let i = 0; i < this.patternObject.checked.length; i++) {
-      const [lines, columns] = this.patternObject.checked[i].split(',');
-      this.patternObject.pattern[+lines][+columns] = 1;
-    }
-  }
+  setChecked(line: number, column: number, status: number): void {
+    this.patternObject.pattern[line][column] = status;
+  }// end setChecked
 
   writeDataPattern(id): void {
     if (this.appService.dataPattern[id]) {

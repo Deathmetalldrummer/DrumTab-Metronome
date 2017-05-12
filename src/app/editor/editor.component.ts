@@ -1,9 +1,9 @@
 import {Component, OnInit, OnDestroy, ViewChild, ElementRef} from '@angular/core';
 import {EditorService} from './editor.service';
-import {AppService} from '../app.service';
 
-import { ActivatedRoute} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
 import {Subscription} from 'rxjs/Subscription';
+
 
 @Component({
   selector: 'app-editor',
@@ -19,22 +19,36 @@ export class EditorComponent implements OnInit, OnDestroy {
   private routeSubscription: Subscription;
   @ViewChild('nameValue') nameValue: ElementRef;
 
-  constructor(private editorService: EditorService, private activateRoute: ActivatedRoute) {
-  }
-  submitOk(): void {
-    this.editorService.setName(this.nameValue.nativeElement.value);
-  }
-  submitClear(): void {
-    this.editorService.clearPatternObject(this.id);
-  }
+
+  constructor(private editorService: EditorService, private activateRoute: ActivatedRoute) {}
+
   ngOnInit() {
     this.routeSubscription = this.activateRoute.params.subscribe(params => this.id = params['id']);
     this.editorService.initPatternObject(this.id);
   }
-  ngOnDestroy() {
-    this.editorService.writeChecked();
+
+  onSave(): void {
+    this.editorService.setName(this.nameValue.nativeElement.value);
     this.editorService.writeDataPattern(this.id);
-    this.editorService.clearPatternObject(this.id);
+  }
+
+  onChangeCheck(i: number, j: number, column: number) {
+    this.editorService.setChecked(i, j, (1 - column));
+  }
+
+  onDrumsetSelect(elem: HTMLSelectElement) {
+    this.editorService.setDrumset(elem.value, elem.getAttribute('id'));
+  }
+
+  onColumnSelect(elem: HTMLSelectElement) {
+    this.editorService.setColumnGrid(+elem.value);
+  }
+
+  onLineSelect(elem: HTMLSelectElement) {
+    this.editorService.setLineGrid(+elem.value);
+  }
+
+  ngOnDestroy() {
     this.routeSubscription.unsubscribe();
   }
 }

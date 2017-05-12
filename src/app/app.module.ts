@@ -4,8 +4,6 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpModule} from '@angular/http';
 import {ROUTES} from './app.routes';
 
-import {EditorDirective} from './editor/editor.directive';
-
 import {AppService} from './app.service';
 import {EditorService} from './editor/editor.service';
 
@@ -21,8 +19,7 @@ import {ListComponent} from './list/list.component';
     AppComponent,
     EditorComponent,
     MetronomeComponent,
-    ListComponent,
-    EditorDirective
+    ListComponent
   ],
   imports: [
     BrowserModule,

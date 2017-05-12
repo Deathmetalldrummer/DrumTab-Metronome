@@ -20,7 +20,7 @@
       </select>
     </td>
     <td *ngFor="let column of line;let j = index;">
-      <div class="check" (click)="onChangeCheck(i,j,column)">{{column}}</div>
+      <div [ngClass]="{'checking': true, 'check': !column, 'checked': column}" (click)="onChangeCheck(i, j, column)"></div>
     </td>
   </tr>
 </table>

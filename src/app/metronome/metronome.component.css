@@ -1,0 +1,14 @@
+.checking {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  border-radius: 100%;
+  background-color: #ccc;
+}
+.check {
+  background-color: #000;
+}
+.checked {
+  background-color: #ff6462;
+}

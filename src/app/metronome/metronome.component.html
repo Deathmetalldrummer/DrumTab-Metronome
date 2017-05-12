@@ -9,7 +9,7 @@
       <div [textContent]="objectTemplate.drumset[i] ? objectTemplate.drumset[i] + ': ' : 'snare: '"></div>
     </td>
     <td *ngFor="let column of line;let j = index;">
-      <input type="checkbox" name="lines" value="{{i}},{{j}}" [attr.checked]="column ? 'checked' : null" disabled />
+      <div [ngClass]="{'checking': true, 'check': !column, 'checked': column}"></div>
     </td>
   </tr>
 </table>

@@ -9,5 +9,4 @@ import {AppService} from './app.service';
 export class AppComponent {
   title = 'App';
   constructor(private appService: AppService) {}
-
 }

@@ -19,7 +19,7 @@ export class EditorDirective {
       this.editorService.setDrumset(elem.value, elem.getAttribute('id'));
     }
     if (elem.name === 'patternCheck') {
-      this.editorService.patternCheck(elem.value, elem.checked);
+      this.editorService.setChecked(elem.value, elem.checked);
     }
   }
 }

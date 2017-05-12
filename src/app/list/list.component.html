@@ -1,7 +1,8 @@
 <h1>{{title}}</h1>
-<div *ngIf="!appService.dataPattern[0]">
+<div *ngIf="!this.appService.dataPattern.length">
   <h3>Empty list</h3>
 </div>
 <ol>
-  <li *ngFor="let objectPattern of appService.dataPattern"><a [routerLink]="['../metronome', objectPattern.id]">{{objectPattern.name}}</a></li>
+  <li *ngFor="let objectPattern of  this.appService.dataPattern"><a [routerLink]="['../metronome', objectPattern.id]">{{objectPattern.name}}</a></li>
 </ol>
+<button (click)="clearList()">Clear List</button>

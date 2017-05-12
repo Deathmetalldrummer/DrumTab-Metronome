@@ -4,73 +4,84 @@ import {Data} from '../data';
 
 @Injectable()
 export class EditorService {
-  dataObject;
-  constructor(private appService: AppService) {
+  patternObject;
+
+  constructor(private appService: AppService) {}
+
+  initPatternObject(id): void {
+    this.patternObject = this.appService.dataPattern[id] || new Data();
+    this.patternObject.id = id ? id : 0;
   }
 
-  addDataObject(id): void {
-    this.dataObject = this.appService.dataPattern[id] || new Data();
-    this.dataObject.id = id ? id : 0;
-  }
-
-  clearDataObject(): void {
-    this.dataObject = new Data();
-  }
-
-  addDataPattern(id): void {
-    if (this.appService.dataPattern[id]) {
-      this.appService.dataPattern[id] = this.dataObject;
-    } else {
-      this.appService.dataPattern.push(this.dataObject);
-    }
-    this.appService.writeData();
+  clearPatternObject(id): void {
+    this.patternObject = new Data();
+    this.patternObject.id = id ? id : 0;
   }
 
   setName(val): void {
-      this.dataObject.name = val.length ? val : 'No-name';
+    this.patternObject.name = val.length ? val : 'No-name';
   }
 
   setLineGrid(line: number): void {
-    const patternLength: number = this.dataObject.pattern.length;
+    const pattern: number[][] = this.patternObject.pattern;
+    const patternLength: number = pattern.length;
     if (line < patternLength) {
-      this.dataObject.pattern.splice(line, (patternLength - line));
+      pattern.splice(line, (patternLength - line));
     } else {
-      const patternChildLength: number = this.dataObject.pattern[0] ? this.dataObject.pattern[0].length : 0;
+      const patternChildLength: number = pattern[0] ? pattern[0].length : 0;
       for (let i = 0; i < (line - patternLength); i++) {
-        this.dataObject.pattern.push([]);
-        this.dataObject.drumset.push('snare');
+        pattern.push([]);
+        this.patternObject.drumset.push('snare');
         for (let j = 0; j < patternChildLength; j++) {
-          this.dataObject.pattern[this.dataObject.pattern.length - 1].push(0);
+          pattern[patternLength - 1].push(0);
         }
       }
     }
-  }// end lineGrid
+  }// end setLineGrid
+
   setColumnGrid(column: number): void {
-    const patternChildLength: number = this.dataObject.pattern[0].length;
-    for (let i = 0; i < this.dataObject.pattern.length; i++) {
+    const pattern: number[][] = this.patternObject.pattern;
+    const patternChildLength: number = pattern[0].length;
+    for (let i = 0; i < pattern.length; i++) {
       if (column < patternChildLength) {
-        this.dataObject.pattern[i].splice(column, (patternChildLength - column));
+        pattern[i].splice(column, (patternChildLength - column));
       } else {
         for (let j = 0; j < (column - patternChildLength); j++) {
-          this.dataObject.pattern[i].push(0);
+          pattern[i].push(0);
         }
       }
     }
-  }// end columnGrid
+  }// end setColumnGrid
 
   setDrumset(val, drumId): void {
     if (val) {
-      this.dataObject.drumset[drumId] = val;
+      this.patternObject.drumset[drumId] = val;
     }
   }
 
-  patternCheck(val, status): void {
-    const [lines, columns] = val.split(',');
+  setChecked(val, status): void {
+    const check = this.patternObject.checked;
     if (status) {
-      this.dataObject.pattern[+lines][+columns] = 1;
+      check.push(val);
     } else {
-      this.dataObject.pattern[+lines][+columns] = 0;
+      check.splice(check.indexOf(val), 1);
     }
-  }// end setChangePattern
+  }// end patternCheck
+
+  writeChecked() {
+    for (let i = 0; i < this.patternObject.checked.length; i++) {
+      const [lines, columns] = this.patternObject.checked[i].split(',');
+      this.patternObject.pattern[+lines][+columns] = 1;
+    }
+  }
+
+  writeDataPattern(id): void {
+    if (this.appService.dataPattern[id]) {
+      this.appService.dataPattern[id] = this.patternObject;
+    } else if (this.patternObject.name.length) {
+      this.appService.dataPattern.push(this.patternObject);
+    }
+    this.appService.writeData();
+  }
 
 }

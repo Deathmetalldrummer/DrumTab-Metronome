@@ -5,18 +5,17 @@
 
 
 
-<table ngClass="arr">
+<table>
   <tr *ngFor="let line of objectTemplate.pattern;let i = index;">
     <td>
-      <div *ngIf="!objectTemplate.drumset[i]">snare:</div>
-      <div *ngIf="objectTemplate.drumset[i]">{{objectTemplate.drumset[i]}}:</div>
+      <div [textContent]="objectTemplate.drumset[i] ? objectTemplate.drumset[i] + ': ' : 'snare: '"></div>
     </td>
     <td *ngFor="let column of line;let j = index;">
-      <input type="checkbox" name="lines" value="{{i}},{{j}}" *ngIf="column;" checked disabled />
-      <input type="checkbox" name="lines" value="{{i}},{{j}}" *ngIf="!column;" disabled />
+      <input type="checkbox" name="lines" value="{{i}},{{j}}" [attr.checked]="column ? 'checked' : null" disabled />
     </td>
   </tr>
 </table>
+<br />
 <button (click)="PlayStop($event)">Play</button>
 <br />
 <br />

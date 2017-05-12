@@ -1,6 +1,6 @@
 <h1>{{title}}</h1>
-<h3>{{editorService.dataObject.name}}</h3>
-<input type="text" name='name' value="{{editorService.dataObject.name}}" #nameValue />
+<h3>{{editorService.patternObject.name}}</h3>
+<input type="text" name='name' [attr.value]="editorService.patternObject.name" #nameValue />
 <br /><br />
 <select name="lineSelect" appChange >
   <option *ngFor="let lineS of lineSelect" value="{{lineS}}">Line {{lineS}}</option>
@@ -10,16 +10,16 @@
 </select>
 <br /><br />
 
-<table ngClass="arr">
-  <tr *ngFor="let line of editorService.dataObject.pattern;let i = index">
+<table *ngIf="editorService.patternObject">
+  <tr *ngFor="let line of editorService.patternObject.pattern;let i = index">
     <td>
       <select name="drumsetSelect" data-id='{{i}}' appChange>
         <option *ngFor="let drumset of drumsetSelect" value="{{drumset}}">{{drumset}}</option>
+        <!--{{editorService.patternObject.drumset[i]}}-->
       </select>
     </td>
     <td *ngFor="let column of line;let j = index;">
-        <input type="checkbox" name="patternCheck" value="{{i}},{{j}}" *ngIf="column" checked appChange />
-        <input type="checkbox" name="patternCheck" value="{{i}},{{j}}" *ngIf="!column" appChange />
+        <input type="checkbox" name="patternCheck" value="{{i}},{{j}}" [attr.checked]="column ? 'checked' : null" appChange />
     </td>
   </tr>
 </table>

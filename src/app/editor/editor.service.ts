@@ -19,16 +19,17 @@ export class EditorService {
 
   setLineGrid(line: number): void {
     const pattern: number[][] = this.patternObject.pattern;
-    const patternLength: number = pattern.length;
-    if (line < patternLength) {
-      pattern.splice(line, (patternLength - line));
+    const column: number = pattern.length;
+    console.log(this.patternObject)
+    if (line < column) {
+      pattern.splice(line, (column - line));
     } else {
       const patternChildLength: number = pattern[0] ? pattern[0].length : 0;
-      for (let i = 0; i < (line - patternLength); i++) {
+      for (let i = 0; i < (line - column); i++) {
         pattern.push([]);
         this.patternObject.drumset.push('snare');
         for (let j = 0; j < patternChildLength; j++) {
-          pattern[patternLength - 1].push(0);
+          pattern[column].push(0);
         }
       }
     }
